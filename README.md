@@ -58,6 +58,9 @@ Change input file and output files:
 `/morphHTA# python morph-hta.py --in advert.hta --out advert-morph.hta`
 
 
-VirusTotal Example (<b><i>I suggest not uploading to VT</i></b>):
+VirusTotal Example 
+==================
+
+<b><i>I suggest not uploading to VT</i></b>:
 
 <img src="virustotal.png">
