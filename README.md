@@ -20,5 +20,41 @@ optional arguments:
   --maxnumsplit <default: 10>
                         Max number of times values should be split in chr
                         obfuscation
-                        ```
+```
 
+Examples:
+=========
+```
+root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py
+﻿███╗   ███╗ ██████╗ ██████╗ ██████╗ ██╗  ██╗      ██╗  ██╗████████╗ █████╗
+████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║  ██║      ██║  ██║╚══██╔══╝██╔══██╗
+██╔████╔██║██║   ██║██████╔╝██████╔╝███████║█████╗███████║   ██║   ███████║
+██║╚██╔╝██║██║   ██║██╔══██╗██╔═══╝ ██╔══██║╚════╝██╔══██║   ██║   ██╔══██║
+██║ ╚═╝ ██║╚██████╔╝██║  ██║██║     ██║  ██║      ██║  ██║   ██║   ██║  ██║
+╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝      ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+
+Morphing Evil.HTA from Cobalt Strike
+Author: Vincent Yiu (@vysec, @vysecurity)
+
+
+[*] morphHTA initiated
+[+] Writing payload to morph.hta
+[+] Payload written
+```
+
+Max variable name length and randomly generated string length reduced to reduce overall size of HTA output:
+```
+root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --maxstrlen 4 --maxvarlen 4
+﻿```
+
+Max split in chr() obfuscation, this reduces the number of additions we do to reduce length:
+
+```
+root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --maxnumsplit 4
+```
+
+Change input file and output files:
+
+```
+root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --in advert.hta --out advert-morph.hta
+```
