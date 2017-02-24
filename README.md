@@ -1,3 +1,7 @@
+Disclaimer
+==========
+As usual, this code and tool should not be used for malicious purposes.
+
 morphHTA
 ========
 
