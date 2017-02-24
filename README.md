@@ -43,6 +43,7 @@ Author: Vincent Yiu (@vysec, @vysecurity)
 ```
 
 Max variable name length and randomly generated string length reduced to reduce overall size of HTA output:
+
 ```
 root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --maxstrlen 4 --maxvarlen 4
 ﻿```
