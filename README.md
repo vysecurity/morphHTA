@@ -4,7 +4,8 @@ morphHTA
 <img src="example.png">
 
 Usage: 
-```usage: morph-hta.py [-h] [--in <input_file>] [--out <output_file>]
+```
+usage: morph-hta.py [-h] [--in <input_file>] [--out <output_file>]
                     [--maxstrlen <default: 1000>] [--maxvarlen <default: 40>]
                     [--maxnumsplit <default: 10>]
 
