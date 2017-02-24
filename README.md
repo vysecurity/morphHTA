@@ -2,6 +2,8 @@ Disclaimer
 ==========
 As usual, this code and tool should not be used for malicious purposes.
 
+
+
 morphHTA
 ========
 
@@ -25,6 +27,8 @@ optional arguments:
                         Max number of times values should be split in chr
                         obfuscation
 ```
+
+
 
 Examples:
 =========
@@ -62,9 +66,18 @@ Author: Vincent Yiu (@vysec, @vysecurity)
 `/morphHTA# python morph-hta.py --in advert.hta --out advert-morph.hta`
 
 
+
+
 VirusTotal Example 
 ==================
 
 <b><i>I suggest not uploading to VT</i></b>:
 
 <img src="virustotal.png">
+
+
+
+
+Example of Obfuscated HTA content
+=================================
+<img src="exampleobf.png">
