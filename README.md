@@ -49,14 +49,17 @@ Max variable name length and randomly generated string length reduced to reduce 
 root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --maxstrlen 4 --maxvarlen 4
 ﻿```
 
+
 Max split in chr() obfuscation, this reduces the number of additions we do to reduce length:
 
 ```
 root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --maxnumsplit 4
 ```
 
+
 Change input file and output files:
 
 ```
 root@ZERO:/mnt/c/Users/vysec/Desktop/morphHTA# python morph-hta.py --in advert.hta --out advert-morph.hta
 ```
+
