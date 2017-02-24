@@ -42,6 +42,7 @@ Author: Vincent Yiu (@vysec, @vysecurity)
 [+] Payload written
 ```
 
+
 Max variable name length and randomly generated string length reduced to reduce overall size of HTA output:
 
 ```
