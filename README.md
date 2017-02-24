@@ -7,7 +7,7 @@ morphHTA
 
 <img src="example.png">
 
-Usage: 
+<b>Usage</b>: 
 ```
 usage: morph-hta.py [-h] [--in <input_file>] [--out <output_file>]
                     [--maxstrlen <default: 1000>] [--maxvarlen <default: 40>]
@@ -47,17 +47,17 @@ Author: Vincent Yiu (@vysec, @vysecurity)
 ```
 
 
-Max variable name length and randomly generated string length reduced to reduce overall size of HTA output:
+<b>Max variable name length and randomly generated string length reduced to reduce overall size of HTA output:</b>
 
 `/morphHTA# python morph-hta.py --maxstrlen 4 --maxvarlen 4`
 
 
-Max split in chr() obfuscation, this reduces the number of additions we do to reduce length:
+<b>Max split in chr() obfuscation, this reduces the number of additions we do to reduce length:</b>
 
 `/morphHTA# python morph-hta.py --maxnumsplit 4`
 
 
-Change input file and output files:
+<b>Change input file and output files:</b>
 
 `/morphHTA# python morph-hta.py --in advert.hta --out advert-morph.hta`
 
