@@ -2,7 +2,7 @@ Disclaimer
 ==========
 As usual, this code and tool should not be used for malicious purposes.
 
-
+Written by Vincent Yiu of MDSec Consulting's ActiveBreach team. Modification of code is allowed with credits to author.
 
 morphHTA
 ========
