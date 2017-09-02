@@ -66,6 +66,9 @@ Author: Vincent Yiu (@vysec, @vysecurity)
 `/morphHTA# python morph-hta.py --in advert.hta --out advert-morph.hta`
 
 
+Video how to
+============
+https://www.youtube.com/watch?v=X4S2aQ4o_jA
 
 
 VirusTotal Example 
