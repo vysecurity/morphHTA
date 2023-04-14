@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os;
 import random;
 import uuid; 
@@ -101,17 +102,17 @@ class morphHTA(object):
 		with open('banner.txt', 'r') as f:
 			data = f.read()
 
-			print "\033[1;31m%s\033[0;0m" % data
-			print "\033[1;34mMorphing Evil.HTA from Cobalt Strike"
-			print "\033[1;32mAuthor: Vincent Yiu (@vysec, @vysecurity)\033[0;0m"
+			print("\033[1;31m%s\033[0;0m" % data)
+			print("\033[1;34mMorphing Evil.HTA from Cobalt Strike")
+			print("\033[1;32mAuthor: Vincent Yiu (@vysec, @vysecurity)\033[0;0m")
 
 	def output(self):
-		print "\033[1;33m[+] Writing payload to \033[1;31m%s\033[0;0m" % self.args.out
+		print("\033[1;33m[+] Writing payload to \033[1;31m%s\033[0;0m" % self.args.out)
 		f = open(self.args.out, "w+")
 		self.newlines
 		f.write('\n'.join(self.newlines))
 		f.close()
-		print "\033[1;33m[+] Payload written\033[0;0m"
+		print("\033[1;33m[+] Payload written\033[0;0m")
 
 	def make_argparser(self):
 		parser = argparse.ArgumentParser(description = "")
@@ -150,13 +151,13 @@ class morphHTA(object):
 	def run(self, args):
 
 		self.banner()
-		print ""
+		print("")
 
 		m.check_args(args)
 
-		print ""
+		print("")
 
-		print "\033[1;32m[*] morphHTA initiated\033[0;0m"
+		print("\033[1;32m[*] morphHTA initiated\033[0;0m")
 
 		hta = open(self.args.infile,'r')
 		lines = []
@@ -370,9 +371,9 @@ class morphHTA(object):
 
 						#print "R1: %s" % (red.split("\"")[1])	# powershell bit
 						#print "R3: %s" % (red.split("\"")[3])	# parameter bit
-						print "Param: %s" % param
+						print("Param: %s" % param)
 
-						print self.obfuscate(line0) + self.obfuscateNum(self.obfuscate(cmd)) + "," + (self.obfuscateNum(self.obfuscate(param) + critical)) + self.obfuscate(line2)
+						print(self.obfuscate(line0) + self.obfuscateNum(self.obfuscate(cmd)) + "," + (self.obfuscateNum(self.obfuscate(param) + critical)) + self.obfuscate(line2))
 
 						line = self.obfuscate(line0) + self.obfuscateNum(self.obfuscate(cmd)) + "," + (self.obfuscateNum(self.obfuscate(param) + critical)) + self.obfuscate(line2)
 
